@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function(){
   
   playerDraw(player,position);
   
-  move();
+  
  
 });
 
@@ -41,13 +41,33 @@ function playerDraw(player,pos) {
   context.webkitImageSmoothingEnabled = false;
   context.msImageSmoothingEnabled = false;
   context.imageSmoothingEnabled = false;
-    context.drawImage(player,pos.x,pos.y,90,90);
-   
+  context.drawImage(player,pos.x,pos.y);
+  
+}
+function jump(){
+console.log("function");
+  for (let i = 0; i < 30; i++) {
+    position.y-=1;
+    playerDraw(player,position);
+    console.log("for");
+  }
+  setTimeout(() => {
+    
+    while (position.y < canvasDom.height-65) {
+      
+      console.log("while");
+      position.y+=2;
+      playerDraw(player,position);
+    }
+
+  }, 1000);
+
 }
 
 function move(){
- let limitH= canvasDom.height-20;
-let limitW= canvasDom.width-20;
+  
+ let limitH= canvasDom.height-65;
+let limitW= canvasDom.width-44;
  window.addEventListener("keydown", function (event) {
 
 switch (event.key) {
@@ -85,9 +105,17 @@ switch (event.key) {
       }
     
     break;
+
+    case " ":
+      console.log("jump");
+      jump();
+      
+    
+    break;
      default:
     return;
 }
+
 event.preventDefault();
 }, true);}
 

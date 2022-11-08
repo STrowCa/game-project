@@ -8,7 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <div>
+        <canvas id="canvas"></canvas>
+    </div>
+    
 </body>
 <script src="../resources/js/script.js"></script>
 </html>
