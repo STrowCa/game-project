@@ -1,9 +1,16 @@
 let player = new Image();
 player.src = '../resources/img/player.png';
-let position={
+let playerPosition={
     x:50,
     y:30,
     };
+
+
+
+
+
+
+
 let canvasDom;
 let context;
 
@@ -22,20 +29,45 @@ document.addEventListener('DOMContentLoaded', function(){
  
 
   
-  playerDraw(player,position);
+  playerDraw(player,playerPosition);
+  surfaceDraw(surface); 
   move();
   
  
 });
 
+let surface=[
+  {
+    size:20,
+    x:100,
+    color:"#9B59B6"
+  },
+  {
+    size:30,
+    x:130,
+    color:"#9B59B6"
+  }
+]
 
+
+function surfaceDraw(object){
+  console.log("function");
+  for (let i = 0; i < object.length; i++) {
+    console.log("surface"+i);
+    context.fillStyle=object[i].color;
+    context.fillRect(object[i].x,canvasDom.height-20,object[i].size,object[i].size);
+    
+  }
+  
+
+}
 
 
 
 function playerDraw(player,pos) {
    // body...  
    context.fillStyle = '#DDDDDD';
-  context.fillRect(0,0,canvasDom.width,canvasDom.height);
+  context.fillRect(pos.x,pos.y,64,64);
  
   context.mozImageSmoothingEnabled = false;
   context.webkitImageSmoothingEnabled = false;
@@ -49,10 +81,10 @@ console.log("function");
   for (let i = 0; i < 30; i++) {
     setTimeout(() => {
 
-      position.y-=1;
+      playerPosition.y-=1;
    
     console.log("for");
-    playerDraw(player,position);
+    playerDraw(player,playerPosition);
     }, 200);
     
   }
@@ -63,16 +95,16 @@ console.log("function");
 
 function fall(){
 let etape = 0;
-let posActu = position.y+7;
+let posActu = playerPosition.y+7;
 
 if (etape==0) {
-  for(let i=position.y; i < position.y+7; i+=0.5) {
+  for(let i=playerPosition.y; i < playerPosition.y+7; i+=0.5) {
       
-    if (position.y!=canvasDom.height-7) {
+    if (playerPosition.y!=canvasDom.height-7) {
       console.log("while");
     setTimeout(() => {
-      position.y+=0.5;
-      playerDraw(player,position);
+      playerPosition.y+=0.5;
+      playerDraw(player,playerPosition);
     }, 500); 
     }
     else{
@@ -86,15 +118,15 @@ if (etape==0) {
  etape++;
 }
   
-  posActu=position.y+20;
+  posActu=playerPosition.y+20;
 if (etape==1) {
-  for(let i=position.y; i < position.y+20 ;i+=0.5) {
+  for(let i=playerPosition.y; i < playerPosition.y+20 ;i+=0.5) {
       
-    if (position.y!=canvasDom.height-20) {
+    if (playerPosition.y!=canvasDom.height-20) {
       console.log("while");
     setTimeout(() => {
-      position.y+=0.5;
-      playerDraw(player,position);
+      playerPosition.y+=0.5;
+      playerDraw(player,playerPosition);
     }, 500); 
     }
     else{
@@ -109,13 +141,13 @@ if (etape==1) {
 
 posActu=canvasDom.height-92;
  if (etape==2) {
-  for(let i=position.y; i < canvasDom.height-92; i+=0.5) {
+  for(let i=playerPosition.y; i < canvasDom.height-92; i+=0.5) {
       
-    if (position.y!=canvasDom.height-20) {
+    if (playerPosition.y!=canvasDom.height-20) {
       console.log("while");
     setTimeout(() => {
-      position.y+=0.5;
-      playerDraw(player,position);
+      playerPosition.y+=0.5;
+      playerDraw(player,playerPosition);
     }, 500); 
     }
     else{
@@ -141,11 +173,11 @@ let limitW= canvasDom.width-44;
 console.log(event.key)
 switch (event.key) {
   case "ArrowDown":
-   if(position.y<limitH){
-    position.y+=2;
+   if(playerPosition.y<limitH){
+    playerPosition.y+=2;
     
     
-  playerDraw(player,position);
+  playerDraw(player,playerPosition);
    }
     break;
   case "ArrowUp":
@@ -156,19 +188,19 @@ switch (event.key) {
       }, 750);
     break;
   case "ArrowLeft":
-      if(position.x>0){
-      position.x-=2;
+      if(playerPosition.x>0){
+      playerPosition.x-=2;
      
       
-      playerDraw(player,position);
+      playerDraw(player,playerPosition);
       }
     break;
   case "ArrowRight":
-      if(position.x<limitW){
-       position.x+=2;
+      if(playerPosition.x<limitW){
+       playerPosition.x+=2;
        
        
-       playerDraw(player,position);
+       playerDraw(player,playerPosition);
       }
     
     break;
