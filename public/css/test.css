@@ -1,0 +1,6 @@
+#canvas{
+width: 98.9vw;
+height: 97.9vh;
+-ms-interpolation-mode: nearest-neighbor;
+  image-rendering: pixelated;
+}

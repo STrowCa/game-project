@@ -1,5 +1,5 @@
 let player = new Image();
-player.src = '../resources/img/player.png';
+player.src = 'img/player.png';
 let playerPosition={
     x:50,
     y:30,
