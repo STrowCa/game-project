@@ -40,8 +40,23 @@ constructor(sizeX,sizeY){
         console.log(this.verticalCollision);
         return this.verticalCollision;
         }
-       
+        recupHorizontalCollision(){
+        return this.horizontalCollision;
+       }
 
+        recupVerticalCollision(){
+        return this.verticalCollision;
+       }
+
+       
+       resetVerticalCollision(){
+        this.verticalCollision= 0
+        return this.verticalCollision;
+       }
+       resetHorizontalCollision(){
+        this.horizontalCollision= 0
+        return this.horizontalCollision;
+       }
 }
 
 export default EntityProperties;

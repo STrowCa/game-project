@@ -1,0 +1,35 @@
+.form{
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
+}
+.form ,.inputs{
+    padding: 1em;
+}
+
+button, .connect input{
+    height: 4em;
+    width: 7em;
+}
+table{
+    background-color: rgb(0, 0, 0);
+}
+th, td{
+    background-color: rgb(255, 255, 255);
+    padding: 2em;
+}
+body{
+    background-image: url('../img/Unofficial-background.jpg');
+}
+
+.coin{
+    width: 10px;
+}
+.avatar{
+    width:100px;
+}
