@@ -1,13 +1,10 @@
 #canvas{
-width: 90.9vw;
+width: 93.3vw;
 height: 97.9vh;
 z-index: 0;
 -ms-interpolation-mode: nearest-neighbor;
   image-rendering: pixelated;
 }
 a{
-  float: right;
-}
-body{
-  display: flex;
+  float:right;
 }

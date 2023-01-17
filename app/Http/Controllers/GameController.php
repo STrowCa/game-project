@@ -14,5 +14,5 @@ class GameController extends Controller
     $id=$request->id;
     
 
-    return view('test', ['id' => $id]);
+    return view('game', ['id' => $id]);
 }}

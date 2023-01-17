@@ -29,31 +29,35 @@ class LoginController extends Controller
         );
         
         $ids= User::select('id')->get();
+
+
         foreach($ids as $id){
             
             $emails= User::select('email')->where('id','=',$id->id)->get();
             $passwords= User::select('password')->where('id','=',$id->id)->get();
+
             foreach($emails as $email){
             $email= $email->email;
             }
+
             foreach($passwords as $password){
             $password=$password->password;
             }
             
-            
             if($user_data['email']==$email && $user_data["password"]==Crypt::decryptString($password)){
                
                 $roles= User::select('role')->where('id','=',$id->id)->get();
+
                 foreach($roles as $role){
                     $role= $role->role;
                     }
                     
-                    
                     if($role=="user"){
                         return redirect()->route('game', ['id'=>$id]);
                     }
+
                     if($role=="admin"){
-                        return Redirect('/');
+                        return Redirect('/admin');
                     }
                 
         
@@ -63,7 +67,8 @@ class LoginController extends Controller
             
         }
             
-    }}
+    }
+}
 
     
 

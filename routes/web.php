@@ -22,7 +22,7 @@ use App\Models\SkinPrice;
 
 Route::get('game/{id}', [GameController::class, 'data'])->name('game');
 
-Route::get('/home', [LoginController::class, "index"])->name('login');
+Route::get('/', [LoginController::class, "index"])->name('login');
 Route::post('/connected', [LoginController::class, 'verifLogin'])->name('connect');
 
 Route::get('/register',[RegisterController::class, 'register'])->name('register');
@@ -35,12 +35,12 @@ Route::get('/edit_profile/{id}',[UserProfileController::class, 'editProfile'])->
 Route::post('/update_profile/{id}',[UserProfileController::class, 'updateProfile'])->name('updateProfile');
 
 
-Route::get('/',[SkinPriceController::class, 'index'])->name('homepage');
+Route::get('/admin',[SkinPriceController::class, 'index'])->name('adminPage');
 
-Route::get('/edit/{id}',[SkinPriceController::class, 'edit'])->name('edit');
-Route::post('/update/{id}',[SkinPriceController::class, 'update'])->name('updated_prduct');
+Route::get('/editSkin/{id}',[SkinPriceController::class, 'editSkin'])->name('editSkin');
+Route::post('/updateSkin/{id}',[SkinPriceController::class, 'updateSkin'])->name('updatedSkin');
 
-Route::get('/new',[SkinPriceController::class, 'addProduct'])->name('add_new_prduct');
-Route::post('/add',[SkinPriceController::class, 'add'])->name('add_prduct');
+Route::get('/newSkin',[SkinPriceController::class, 'addSkin'])->name('addSkin');
+Route::post('/addSkin',[SkinPriceController::class, 'addedSkin'])->name('addedSkin');
 
-Route::get('/delete/{id}',[SkinPriceController::class, 'delete'])->name('delete');
+Route::get('/deleteSkin/{id}',[SkinPriceController::class, 'deleteSkin'])->name('deleteSkin');

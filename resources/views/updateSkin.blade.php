@@ -8,17 +8,21 @@
   <title>Document</title>
 </head>
 <body>
-  <form class="form" method="POST" action="{{Route('updateProfile',$data)}}" >
+  <form class="form" method="POST" action="{{Route('updatedSkin',[$skin->id])}}" >
     <h2>Page update</h2>
     @csrf
     <div class="inputs">
-      <input name="name" id='name' type="text" value= "{{$data['name']}}">
+      <input name="name" id='name' type="text" value= "{{$skin->name}}">
     </div>
 
     <div class="inputs">
-      <input name="description" id='description' type="text" value= "{{$data['description']}}">
+      <input name="prix" id='prix' type="text" value= "{{$skin->prix_ht}}">
     </div>
 
+    <div class="inputs">
+      <input name="description" id='description' type="text" value= "{{$skin->description}}">
+    </div>
+    
     <button type="submit" class="btn btn-secondary">Valider</button>
   </form>
 </body>

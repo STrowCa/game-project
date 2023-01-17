@@ -9,35 +9,27 @@
   <title>Document</title>
 </head>
 <body>
-  
-   
-    
-    
-      
-    <h1>Admin page</h1>
-    <table>
-      <tr><th colspan="5">Skin table</th></tr>
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Path description</th>
-        <th></th>
-        <th></th>
-      </tr>
-  
+  <h1>Profile</h1>
+
+  <table>
+    <tr>
+      <td rowspan="2"><img class="avatar" src="../img/avatar.png" alt=""></td>
+      <td colspan="2">Coins: {{ $user_data['coin'] }}<img class="coin" src="../img/coin.png" alt=""></td>
+      <td rowspan="4" colspan="1"><a href="{{Route('editProfile',[$user_data['id']])}}"><button>EDIT</button></a></td>
+    </tr>
+
+    <tr>
+      <td colspan="2" rowspan="3">{{ $user_data['description'] }}</td>
+    </tr>
+
     <tr>
       <td>{{ $user_data['name'] }}</td>
+    </tr>
+
+    <tr>
       <td>{{ $user_data['title'] }}</td>
-      <td>{{ $user_data['coin'] }} </td>
-      <td>{{ $user_data['description'] }}</td>
-      <td><a href="{{Route('editProfile',[$user_data['id']])}}"><button>EDIT</button></a></td>
       
     </tr>
-    
-    
-    
-    
-  
   </table>
 
 </body>

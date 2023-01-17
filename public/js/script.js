@@ -1,7 +1,7 @@
 
 let player = new Image();
-player.src = 'img/player.png';
-let playerPosition={
+player.src = '../img/player.png';
+let playerProperties={
     x:20,
     y:60,
     jumpHeightLimit: 30,
@@ -48,7 +48,7 @@ let playerPosition={
 
 
 let coinImage = new Image();
-coinImage.src = 'img/coin.png';
+coinImage.src = '../img/coin.png';
 
 let coins=[
   {
@@ -95,7 +95,7 @@ function verifyHorizontalCollision(object){
 // Vérifie si l'entitée se trouve entre la gauche et la droite d'une surface, effectue cette verification pour chaque surface présente dans le niveau
   for (let i = 0; i < object.length; i++) {
     difference= 20-object[i].weight;
-    if (object[i].x-object[i].weight-playerPosition.weight-difference<playerPosition.x && playerPosition.x< object[i].x-difference) {
+    if (object[i].x-object[i].weight-playerProperties.weight-difference<playerProperties.x && playerProperties.x< object[i].x-difference) {
       //si l'entitée est présente dans la zone de collision, on rajoute une erreur à la variable
       horizontalCollision[i]= 1;
   }
@@ -110,7 +110,7 @@ function verifyVerticalCollision(object){
 // Vérifie si l'entitée se trouve entre le haut et le bas d'une surface, effectue cette verification pour chaque surface présente dans le niveau
 for (let i = 0; i < object.length; i++) {
   difference= object[i].y-130;
-  if ( playerPosition.y> object[i].y-object[i].height-43-difference && playerPosition.y< object[i].y+object[i].height) {
+  if ( playerProperties.y> object[i].y-object[i].height-43-difference && playerProperties.y< object[i].y+object[i].height) {
     //si l'entitée est présente dans la zone de collision, on rajoute une erreur à la variable
     verticalCollision[i]= 1;
   }
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function(){
   
   
   Draw();
-  fall(playerPosition);
+  fall(playerProperties);
   move();
   
  
@@ -187,33 +187,33 @@ backgroundDraw();
 //dessine toutes les surfaces du niveau
 surfaceDraw(surface);
 //dessine le joueur
-playerDraw(player,playerPosition);
+playerDraw(player,playerProperties);
 
 
 }
 
 //fonction de saut, vitesse d'ascension dégressive à retravailler 
 function jump(){
-  verifyCollision(horizontalCollision, verticalCollision, surface, playerPosition);
-   playerPosition.ascensionSpeed*=playerPosition.jumpSpeed;
+  verifyCollision(horizontalCollision, verticalCollision, surface, playerProperties);
+   playerProperties.ascensionSpeed*=playerProperties.jumpSpeed;
    //vérifie les collisions
   
    //vérifie si l'entitée peut continuer son ascension
-   if (playerPosition.jumpPosition < playerPosition.jumpHeightLimit && playerPosition.collisionState< 1 ){
+   if (playerProperties.jumpPosition < playerProperties.jumpHeightLimit && playerProperties.collisionState< 1 ){
    window.requestAnimationFrame(jump);
-   playerPosition.y-=playerPosition.ascensionSpeed;
+   playerProperties.y-=playerProperties.ascensionSpeed;
    Draw();
-   playerPosition.jumpSpeed*=1.06;
-   playerPosition.jumpPosition+=playerPosition.ascensionSpeed;
+   playerProperties.jumpSpeed*=1.06;
+   playerProperties.jumpPosition+=playerProperties.ascensionSpeed;
    
    
   }
   //reset toutes les variables modifié lors de l'application de la fonction (évite des sauts à hauteur exponentielle, réutilisable en power up)
   else{
  
-    playerPosition.jumpSpeed=0.87;
-    playerPosition.jumpPosition=0;
-    playerPosition.ascensionSpeed=0.63;
+    playerProperties.jumpSpeed=0.87;
+    playerProperties.jumpPosition=0;
+    playerProperties.ascensionSpeed=0.63;
     
   }
 
@@ -222,18 +222,16 @@ function jump(){
 
 //fonction de chute, vitesse de chute progréssive à faire !!!
 function fall(Entity){
-  verifyCollision(horizontalCollision, verticalCollision, surface, playerPosition);
+  verifyCollision(horizontalCollision, verticalCollision, surface, playerProperties);
 
    switch (Entity.fallState) {
     case 0:
+      if (Entity.y < canvasDom.height-65 && Entity.collisionState<1 ){
       setTimeout(() => {
-        
-        
-          
-          verifyCollision(horizontalCollision, verticalCollision, surface, playerPosition);
+          verifyCollision(horizontalCollision, verticalCollision, surface, playerProperties);
           Entity.fallState=1;
-          fall(playerPosition);
-      }, 1000);
+          fall(playerProperties);
+      }, 250);}
       break;
     case 1:
       
@@ -241,8 +239,8 @@ function fall(Entity){
       if (Entity.y < canvasDom.height-65 && Entity.collisionState<1 ) {
         while(Entity.y < canvasDom.height-65 && Entity.collisionState<1){
           Entity.y +=2;
-          
-          verifyCollision(horizontalCollision, verticalCollision, surface, playerPosition);
+          Draw();
+          verifyCollision(horizontalCollision, verticalCollision, surface, playerProperties);
         }
         if(Entity.y > canvasDom.height-65 || Entity.collisionState>0){
           
@@ -264,7 +262,7 @@ function fall(Entity){
 
 //fonction de déplacement, à refaire afin de pouvoir utiliser plusieur touche à la fois
 function move(){
-  verifyCollision(horizontalCollision, verticalCollision, surface, playerPosition);
+  verifyCollision(horizontalCollision, verticalCollision, surface, playerProperties);
  let limitW= canvasDom.width-44;
  window.addEventListener("keydown", function (event) {
  console.log(event.key)
@@ -273,21 +271,21 @@ function move(){
    case "ArrowUp":
       window.requestAnimationFrame(jump);
       setTimeout(() => {
-        fall(playerPosition);
+        fall(playerProperties);
       }, 750);
 
     break;
 
    case "ArrowLeft":
     //fait reculer le joueur de 2 pixels
-      if(playerPosition.x>0){
-        playerPosition.x-=2;
-        verifyCollision(horizontalCollision,verticalCollision,surface,playerPosition);
+      if(playerProperties.x>0){
+        playerProperties.x-=2;
+        verifyCollision(horizontalCollision,verticalCollision,surface,playerProperties);
         
       //si le joueur rentre en collision avec une surface, déplace le jouer de 2 pixel en avant pour donner l'illusion de collision
-       if(playerPosition.collisionState>0){
-        playerPosition.x+=2;
-        verifyCollision(horizontalCollision,verticalCollision,surface,playerPosition);
+       if(playerProperties.collisionState>0){
+        playerProperties.x+=2;
+        verifyCollision(horizontalCollision,verticalCollision,surface,playerProperties);
         Draw();
         
        }
@@ -295,21 +293,21 @@ function move(){
          Draw();
        }
       }
-      if(playerPosition.collisionState<1){
-        fall(playerPosition);
+      if(playerProperties.collisionState<1){
+        fall(playerProperties);
       }
 
     break;
 
   case "ArrowRight":
     //fait avancer le joueur de 2 pixels
-      if(playerPosition.x<limitW){
-         playerPosition.x+=2;
-         verifyCollision(horizontalCollision,verticalCollision,surface,playerPosition);
+      if(playerProperties.x<limitW){
+         playerProperties.x+=2;
+         verifyCollision(horizontalCollision,verticalCollision,surface,playerProperties);
         //si le joueur rentre en collision avec une surface, déplace le jouer de 2 pixel en arrière pour donner l'illusion de collision
-         if(playerPosition.collisionState>0){
-           playerPosition.x-=2;
-           verifyCollision(horizontalCollision,verticalCollision,surface,playerPosition);
+         if(playerProperties.collisionState>0){
+           playerProperties.x-=2;
+           verifyCollision(horizontalCollision,verticalCollision,surface,playerProperties);
            Draw();
          }
          else{
@@ -318,8 +316,8 @@ function move(){
 
       
       }
-      if(playerPosition.collisionState<1){
-        fall(playerPosition);
+      if(playerProperties.collisionState<1){
+        fall(playerProperties);
       }
       
     break;
@@ -328,7 +326,7 @@ function move(){
       
     window.requestAnimationFrame(jump);
     setTimeout(() => {
-      fall(playerPosition);
+      fall(playerProperties);
     }, 750);
      
       
